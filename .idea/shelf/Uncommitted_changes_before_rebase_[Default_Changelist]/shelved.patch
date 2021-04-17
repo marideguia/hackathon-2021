@@ -1,0 +1,140 @@
+Index: HackUIOWA-Project/earthDiscovery.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import pygame\r\nimport random\r\n\r\n# Initialize the pygame\r\npygame.init()\r\n\r\n# Create the screen: w, h\r\nscreen = pygame.display.set_mode((800, 600))\r\n\r\n# Background\r\nbackground = pygame.image.load('colorful-abstract-universe-textured-background.jpg')\r\n\r\n# Title and Icon (32 pixels)\r\nicon = pygame.image.load('us.png')  # ***Change game icon***\r\npygame.display.set_icon(icon)\r\npygame.display.set_caption(\"Earth Discovery\")\r\n\r\n# Player\r\nplayerImg = pygame.image.load('student.png')\r\n# Player coordinates by pixel: x - Left to right, y - Top to bottom\r\nplayerX = 355\r\nplayerY = 500\r\nplayerX_change = 0\r\n# Flag\r\nflagImg = pygame.image.load('us.png')\r\n# Flag coordinates by pixel: x - Left to right, y - Top to bottom\r\nflagX = random.randint(0, 800)\r\nflagY = random.randint(50, 150)\r\nflagX_change = 0.3\r\nflagY_change = 40\r\n\r\n\r\n# FN DEF: Displays player on the screen\r\ndef player(x, y):\r\n    # Draws the player on the screen\r\n    screen.blit(playerImg, (x, y))\r\n\r\n\r\n# FN DEF: Displays flag on the screen\r\ndef flag(x, y):\r\n    screen.blit(flagImg, (x, y))\r\n\r\n\r\n# Game Loop\r\nrunning = True\r\nwhile running:\r\n    # Background Color: R, G, B\r\n    screen.fill((128, 128, 255))\r\n    # Background image\r\n    screen.blit(background, (-800, -1500))\r\n\r\n    # Exit game when player QUITS\r\n    for event in pygame.event.get():\r\n        if event.type == pygame.QUIT:\r\n            running = False\r\n\r\n        # Keystroke is an 'event'\r\n        # if keystroke pressed, check if right or left\r\n        # if keystroke released, stop moving\r\n        if event.type == pygame.KEYDOWN:\r\n            if event.key == pygame.K_LEFT:\r\n                playerX_change = -0.3\r\n            if event.key == pygame.K_RIGHT:\r\n                playerX_change = 0.3\r\n        if event.type == pygame.KEYUP:\r\n            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:\r\n                playerX_change = 0\r\n\r\n    # Display player on screen\r\n    playerX += playerX_change\r\n\r\n    # Create boundaries\r\n    if playerX <= 0:\r\n        playerX = 0\r\n    elif playerX >= 736:\r\n        playerX = 736\r\n\r\n    # Display flag on screen\r\n    flagX += flagX_change\r\n\r\n    # Flag movement\r\n    if flagX <= 0:\r\n        flagX_change = 0.3\r\n        flagY += flagY_change\r\n    elif flagX >= 730:\r\n        flagX_change = -0.3\r\n        flagY += flagY_change\r\n\r\n    if flagY >= 500:\r\n        flagY_change = -0.3\r\n    elif flagY <= 0:\r\n        flagY_change = 0.3\r\n\r\n    player(playerX, playerY)\r\n    flag(flagX, flagY)\r\n\r\n    # Continuously update display\r\n    pygame.display.update()\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/HackUIOWA-Project/earthDiscovery.py b/HackUIOWA-Project/earthDiscovery.py
+--- a/HackUIOWA-Project/earthDiscovery.py	(revision d2bef4470101ac9ceaf1b032a03ccafc52d124d7)
++++ b/HackUIOWA-Project/earthDiscovery.py	(date 1618679397987)
+@@ -5,15 +5,12 @@
+ pygame.init()
+ 
+ # Create the screen: w, h
+-screen = pygame.display.set_mode((800, 600))
++screen = pygame.display.set_mode((800,600))
+ 
+-# Background
+-background = pygame.image.load('colorful-abstract-universe-textured-background.jpg')
+-
+ # Title and Icon (32 pixels)
+-icon = pygame.image.load('us.png')  # ***Change game icon***
++icon = pygame.image.load('us.png') # ***Change game icon***
+ pygame.display.set_icon(icon)
+-pygame.display.set_caption("Earth Discovery")
++pygame.display.set_caption("Earth Invaders")
+ 
+ # Player
+ playerImg = pygame.image.load('student.png')
+@@ -21,33 +18,17 @@
+ playerX = 355
+ playerY = 500
+ playerX_change = 0
+-# Flag
+-flagImg = pygame.image.load('us.png')
+-# Flag coordinates by pixel: x - Left to right, y - Top to bottom
+-flagX = random.randint(0, 800)
+-flagY = random.randint(50, 150)
+-flagX_change = 0.3
+-flagY_change = 40
+-
+ 
+ # FN DEF: Displays player on the screen
+-def player(x, y):
++def player(x,y):
+     # Draws the player on the screen
+     screen.blit(playerImg, (x, y))
+ 
+-
+-# FN DEF: Displays flag on the screen
+-def flag(x, y):
+-    screen.blit(flagImg, (x, y))
+-
+-
+ # Game Loop
+ running = True
+ while running:
+     # Background Color: R, G, B
+     screen.fill((128, 128, 255))
+-    # Background image
+-    screen.blit(background, (-800, -1500))
+ 
+     # Exit game when player QUITS
+     for event in pygame.event.get():
+@@ -66,33 +47,12 @@
+             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                 playerX_change = 0
+ 
++
+     # Display player on screen
+     playerX += playerX_change
+-
+-    # Create boundaries
+-    if playerX <= 0:
+-        playerX = 0
+-    elif playerX >= 736:
+-        playerX = 736
+-
+-    # Display flag on screen
+-    flagX += flagX_change
+-
+-    # Flag movement
+-    if flagX <= 0:
+-        flagX_change = 0.3
+-        flagY += flagY_change
+-    elif flagX >= 730:
+-        flagX_change = -0.3
+-        flagY += flagY_change
+-
+-    if flagY >= 500:
+-        flagY_change = -0.3
+-    elif flagY <= 0:
+-        flagY_change = 0.3
+-
+-    player(playerX, playerY)
+-    flag(flagX, flagY)
++    player(playerX,playerY)
+ 
+-    # Continuously update display
++    # Continously update display
+     pygame.display.update()
++
++
+Index: .idea/hackathon-2021.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"PYTHON_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\">\r\n    <content url=\"file://$MODULE_DIR$\" />\r\n    <orderEntry type=\"jdk\" jdkName=\"Python 3.8 (hailey_hackathon)\" jdkType=\"Python SDK\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/hackathon-2021.iml b/.idea/hackathon-2021.iml
+--- a/.idea/hackathon-2021.iml	(revision d2bef4470101ac9ceaf1b032a03ccafc52d124d7)
++++ b/.idea/hackathon-2021.iml	(date 1618679451507)
+@@ -2,7 +2,7 @@
+ <module type="PYTHON_MODULE" version="4">
+   <component name="NewModuleRootManager">
+     <content url="file://$MODULE_DIR$" />
+-    <orderEntry type="jdk" jdkName="Python 3.8 (hailey_hackathon)" jdkType="Python SDK" />
++    <orderEntry type="jdk" jdkName="Python 3.8 (pythonProject1)" jdkType="Python SDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+   </component>
+ </module>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectRootManager\" version=\"2\" project-jdk-name=\"Python 3.8 (hailey_hackathon)\" project-jdk-type=\"Python SDK\" />\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision d2bef4470101ac9ceaf1b032a03ccafc52d124d7)
++++ b/.idea/misc.xml	(date 1618679451514)
+@@ -1,4 +1,4 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.8 (hailey_hackathon)" project-jdk-type="Python SDK" />
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.8 (pythonProject1)" project-jdk-type="Python SDK" />
+ </project>
+\ No newline at end of file
