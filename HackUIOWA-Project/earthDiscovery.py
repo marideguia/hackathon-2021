@@ -22,6 +22,7 @@ playerImg = pygame.image.load('student.png')
 playerX = 355
 playerY = 500
 playerX_change = 0
+
 # Flag
 flagImg = pygame.image.load('us.png')
 # Flag coordinates by pixel: x - Left to right, y - Top to bottom
@@ -30,40 +31,16 @@ flagY = random.randint(50, 350)
 flagX_change = 0.3
 flagY_change = 40
 
-# star
-starImg = pygame.image.load('shooting-star.png')
-# star coordinates by pixel: x - Left to right, y - Top to bottom
-# you need to rotate the image
-starX = 0
-starY = 480
-starX_change = 0
-starY_change = .5
-star_state = "ready"
-
-score = 0
 
 # FN DEF: Displays player on the screen
 def player(x, y):
+    # Draws the player on the screen
     screen.blit(playerImg, (x, y))
 
 
 # FN DEF: Displays flag on the screen
 def flag(x, y):
     screen.blit(flagImg, (x, y))
-
-
-def fire_star(x, y):
-    global star_state
-    star_state = "fire"
-    screen.blit(starImg, (x + 16, y + 10))
-
-
-def isCollision(flagX, flagY, starX, starY):
-    distance = math.sqrt((math.pow(flagX - starX, 2)) + (math.pow(flagY - starY, 2)))
-    if distance < 64  :
-        return True
-    else:
-        return False
 
 
 # Game Loop
@@ -92,6 +69,7 @@ while running:
                     # get the current x coordinate of the spaceship
                     starX = playerX
                     fire_star(starX, starY)
+        # If keystroke released, stop moving
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 playerX_change = 0
@@ -115,9 +93,16 @@ while running:
     elif flagX >= 730:
         flagX_change = -0.3
         flagY += flagY_change
+    # if flag hits lower bound, change y direction and move up
+    if flagY >= 350:
+        flagY_change = -40
+        flagY += flagY_change
+    # if flag hits upper bound, change y direction and move down
     if flagY >= 350:
         flagY_change = -40
     elif flagY <= 0:
+        flagY_change = 40
+        flagY += flagY_change
         flagY_change = 40
         flagY += flagY_change
 
