@@ -25,7 +25,7 @@ playerX_change = 0
 flagImg = pygame.image.load('us.png')
 # Flag coordinates by pixel: x - Left to right, y - Top to bottom
 flagX = random.randint(0, 800)
-flagY = random.randint(50, 150)
+flagY = random.randint(50, 350)
 flagX_change = 0.3
 flagY_change = 40
 
@@ -86,10 +86,12 @@ while running:
         flagX_change = -0.3
         flagY += flagY_change
 
-    if flagY >= 500:
-        flagY_change = -0.3
+    if flagY >= 350:
+        flagY_change = -40
+        flagY += flagY_change
     elif flagY <= 0:
-        flagY_change = 0.3
+        flagY_change = 40
+        flagY += flagY_change
 
     player(playerX, playerY)
     flag(flagX, flagY)
