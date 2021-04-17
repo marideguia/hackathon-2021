@@ -1,0 +1,94 @@
+Index: HackUIOWA-Project/earthDiscovery.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- HackUIOWA-Project/earthDiscovery.py	(revision a14b4f6afb09d882e0d57f8beb591bd9b6c66946)
++++ HackUIOWA-Project/earthDiscovery.py	(date 1618675978946)
+@@ -1,15 +1,16 @@
+ import pygame
++import random
+ 
+ # Initialize the pygame
+ pygame.init()
+ 
+ # Create the screen: w, h
+-screen = pygame.display.set_mode((800,600))
++screen = pygame.display.set_mode((800, 600))
+ 
+ # Title and Icon (32 pixels)
+-icon = pygame.image.load('us.png') # ***Change game icon***
++icon = pygame.image.load('us.png')  # ***Change game icon***
+ pygame.display.set_icon(icon)
+-pygame.display.set_caption("Earth Invaders")
++pygame.display.set_caption("Earth Discovery")
+ 
+ # Player
+ playerImg = pygame.image.load('student.png')
+@@ -18,11 +19,25 @@
+ playerY = 500
+ playerX_change = 0
+ 
++# Flag
++flagImg = pygame.image.load('us.png')
++# Flag coordinates by pixel: x - Left to right, y - Top to bottom
++flagX = random.randint(0, 800)
++flagY = random.randint(50, 150)
++flagX_change = 0.3
++flagY_change = 40
++
++
+ # FN DEF: Displays player on the screen
+-def player(x,y):
++def player(x, y):
+     # Draws the player on the screen
+     screen.blit(playerImg, (x, y))
+ 
++# FN DEF: Displays flag on the screen
++def flag(x, y):
++    screen.blit(flagImg, (x, y))
++
++
+ # Game Loop
+ running = True
+ while running:
+@@ -46,12 +61,34 @@
+             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                 playerX_change = 0
+ 
+-
+     # Display player on screen
+     playerX += playerX_change
+-    player(playerX,playerY)
++
++    # Create boundaries
++    if playerX <= 0:
++        playerX = 0
++    elif playerX >= 736:
++        playerX = 736
++
++    # Display flag on screen
++    flagX += flagX_change
++
++    # Flag movement
++    if flagX <= 0:
++        flagX_change = 0.3
++        flagY += flagY_change
++    elif flagX >= 736:
++        flagX_change = -0.3
++        flagY += flagY_change
++    if flagY >= 500:
++        flagY_change = -0.3
++    elif flagY <= 0:
++        flagY_change = 0.3
++        
++
++
++    player(playerX, playerY)
++    flag(flagX, flagY)
+ 
+-    # Continously update display
++    # Continuously update display
+     pygame.display.update()
+-
+-
