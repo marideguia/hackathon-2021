@@ -95,7 +95,6 @@ while running:
         flagY_change = 40
         flagY += flagY_change
 
-    # Calling functions
     player(playerX, playerY)
     flag(flagX, flagY)
 
