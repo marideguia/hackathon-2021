@@ -152,7 +152,7 @@ while running:
             if event.key == pygame.K_RIGHT:
                 playerX_change = 0.3
             if event.key == pygame.K_SPACE:
-                if star_state is "ready":
+                if star_state == "ready":
                     star_sound = mixer.Sound('laser.wav')
                     star_sound.play()
                     # get the current x coordinate of the star
@@ -182,31 +182,28 @@ while running:
                 flagY[j] = 2000
             game_over_text()
             break
-
+        #if flag hits left bound, change x direction and move up/down
         flagX[i] += flagX_change[i]
         if flagX[i] <= 0:
             flagX_change[i] = 0.3
             flagY[i] += flagY_change[i]
+        #if flag hits right bound, change x direction and move up/down
         elif flagX[i] >= 730:
             flagX_change[i] = -0.3
             flagY[i] += flagY_change[i]
 
-    # if flag hits lower bound, change y direction and move up
+        # if flag hits lower bound, change y direction and move up
         if flagY[i] >= 350:
             flagY_change[i] = -40
             flagY[i] += flagY_change[i]
         # if flag hits upper bound, change y direction and move down
-        if flagY[i] >= 350:
-            flagY_change[i] = -40
         elif flagY[i] <= 0:
             flagY_change[i] = 40
             flagY[i] += flagY_change[i]
-            flagY_change[i] = 40
-            flagY[i] += flagY_change[i]
 
-        # collison
-        collison = isCollision(flagX[i], flagY[i], starX, starY)
-        if collison:
+        # Collision
+        collision = isCollision(flagX[i], flagY[i], starX, starY)
+        if collision:
             hit_sound = mixer.Sound('explosion.wav')
             hit_sound.play()
             starY = 480
