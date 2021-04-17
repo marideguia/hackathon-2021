@@ -31,6 +31,17 @@ flagY = random.randint(50, 350)
 flagX_change = 0.3
 flagY_change = 40
 
+# star
+starImg = pygame.image.load('shooting-star.png')
+# star coordinates by pixel: x - Left to right, y - Top to bottom
+# you need to rotate the image
+starX = 0
+starY = 480
+starX_change = 0
+starY_change = .5
+star_state = "ready"
+
+score = 0
 
 # FN DEF: Displays player on the screen
 def player(x, y):
@@ -41,6 +52,20 @@ def player(x, y):
 # FN DEF: Displays flag on the screen
 def flag(x, y):
     screen.blit(flagImg, (x, y))
+
+
+def fire_star(x, y):
+    global star_state
+    star_state = "fire"
+    screen.blit(starImg, (x + 16, y + 10))
+
+
+def isCollision(flagX, flagY, starX, starY):
+    distance = math.sqrt((math.pow(flagX - starX, 2)) + (math.pow(flagY - starY, 2)))
+    if distance < 64  :
+        return True
+    else:
+        return False
 
 
 # Game Loop
