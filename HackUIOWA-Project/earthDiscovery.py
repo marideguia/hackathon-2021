@@ -10,7 +10,7 @@ pygame.init()
 screen = pygame.display.set_mode((800, 600))
 
 # Background
-background = pygame.image.load('colorful-abstract-universe-textured-background.jpg')
+background = pygame.image.load('background.png')
 
 # background sound
 mixer.music.load('bicycle.mp3')
@@ -136,7 +136,7 @@ while running:
     # Background Color: R, G, B
     screen.fill((128, 128, 255))
     # Background image
-    screen.blit(background, (-800, -1500))
+    screen.blit(background, (0, 0))
 
     # Exit game when player QUITS
     for event in pygame.event.get():
