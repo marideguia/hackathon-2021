@@ -1,8 +1,6 @@
 import pygame
 import random
 
-#VS Code Github Integration Teset
-
 # Initialize the pygame
 pygame.init()
 
@@ -23,6 +21,7 @@ playerImg = pygame.image.load('student.png')
 playerX = 355
 playerY = 500
 playerX_change = 0
+
 # Flag
 flagImg = pygame.image.load('us.png')
 # Flag coordinates by pixel: x - Left to right, y - Top to bottom
@@ -34,7 +33,6 @@ flagY_change = 40
 
 # FN DEF: Displays player on the screen
 def player(x, y):
-    # Draws the player on the screen
     screen.blit(playerImg, (x, y))
 
 
@@ -56,46 +54,51 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-        # Keystroke is an 'event'
-        # if keystroke pressed, check if right or left
-        # if keystroke released, stop moving
+        # Keystroke events - Player movement
+        # If keystroke pressed, check if right or left
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 playerX_change = -0.3
             if event.key == pygame.K_RIGHT:
                 playerX_change = 0.3
+        # If keystroke released, stop moving        
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 playerX_change = 0
 
-    # Display player on screen
+    #Apply player movement
     playerX += playerX_change
 
-    # Create boundaries
+    # Create player movement boundaries
     if playerX <= 0:
         playerX = 0
     elif playerX >= 736:
         playerX = 736
 
-    # Display flag on screen
+    # Apply flag movement
     flagX += flagX_change
 
-    # Flag movement
+    # Flag movement 
+    # if flag hits left bound, change x direction and move up/down
     if flagX <= 0:
         flagX_change = 0.3
         flagY += flagY_change
+    # if flag hits right bound, change x direction and move up/down
     elif flagX >= 730:
         flagX_change = -0.3
         flagY += flagY_change
-
+    # if flag hits lower bound, change y direction and move up
     if flagY >= 350:
         flagY_change = -40
         flagY += flagY_change
+    # if flag hits upper bound, change y direction and move down
     elif flagY <= 0:
         flagY_change = 40
         flagY += flagY_change
 
+    # Update player position
     player(playerX, playerY)
+    # Update flag position
     flag(flagX, flagY)
 
     # Continuously update display
