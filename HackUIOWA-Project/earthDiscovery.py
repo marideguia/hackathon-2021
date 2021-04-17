@@ -7,6 +7,9 @@ pygame.init()
 # Create the screen: w, h
 screen = pygame.display.set_mode((800, 600))
 
+# Background
+background = pygame.image.load('colorful-abstract-universe-textured-background.jpg')
+
 # Title and Icon (32 pixels)
 icon = pygame.image.load('us.png')  # ***Change game icon***
 pygame.display.set_icon(icon)
@@ -43,6 +46,8 @@ running = True
 while running:
     # Background Color: R, G, B
     screen.fill((128, 128, 255))
+    # Background image
+    screen.blit(background, (-800, -1500))
 
     # Exit game when player QUITS
     for event in pygame.event.get():
