@@ -1,15 +1,16 @@
 import pygame
+import random
 
 # Initialize the pygame
 pygame.init()
 
 # Create the screen: w, h
-screen = pygame.display.set_mode((800,600))
+screen = pygame.display.set_mode((800, 600))
 
 # Title and Icon (32 pixels)
-icon = pygame.image.load('us.png') # ***Change game icon***
+icon = pygame.image.load('us.png')  # ***Change game icon***
 pygame.display.set_icon(icon)
-pygame.display.set_caption("Earth Invaders")
+pygame.display.set_caption("Earth Discovery")
 
 # Player
 playerImg = pygame.image.load('student.png')
@@ -17,11 +18,25 @@ playerImg = pygame.image.load('student.png')
 playerX = 355
 playerY = 500
 playerX_change = 0
+# Flag
+flagImg = pygame.image.load('us.png')
+# Flag coordinates by pixel: x - Left to right, y - Top to bottom
+flagX = random.randint(0, 800)
+flagY = random.randint(50, 150)
+flagX_change = 0.3
+flagY_change = 40
+
 
 # FN DEF: Displays player on the screen
-def player(x,y):
+def player(x, y):
     # Draws the player on the screen
     screen.blit(playerImg, (x, y))
+
+
+# FN DEF: Displays flag on the screen
+def flag(x, y):
+    screen.blit(flagImg, (x, y))
+
 
 # Game Loop
 running = True
@@ -46,12 +61,33 @@ while running:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 playerX_change = 0
 
-
     # Display player on screen
     playerX += playerX_change
-    player(playerX,playerY)
 
-    # Continously update display
+    # Create boundaries
+    if playerX <= 0:
+        playerX = 0
+    elif playerX >= 736:
+        playerX = 736
+
+    # Display flag on screen
+    flagX += flagX_change
+
+    # Flag movement
+    if flagX <= 0:
+        flagX_change = 0.3
+        flagY += flagY_change
+    elif flagX >= 730:
+        flagX_change = -0.3
+        flagY += flagY_change
+
+    if flagY >= 500:
+        flagY_change = -0.3
+    elif flagY <= 0:
+        flagY_change = 0.3
+
+    player(playerX, playerY)
+    flag(flagX, flagY)
+
+    # Continuously update display
     pygame.display.update()
-
-
